@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'Times New Roman', Times, serif;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(194, 231, 246);
+}
+
+h2 {
+    font-size: 36px;
+    text-align: center;
+    color: black;
+    margin: 30px 10px;
+    padding-left: 20px;
+}
+
+.board-background {
+    display: block;
+    max-width: 350px;
+    max-height: 450px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.background {
+    display: block;
+    border: 2px solid rgb(194, 192, 192);
+    border-radius: 20px;
+    background-color: rgb(240, 237, 237);
+    box-shadow: 0 0 15px rgb(109, 108, 108);
+}
+
+.board-grid {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 10px;
+    column-gap: 10px;
+    margin: 10px;
+}
+
+.board-grid > div {
+    height: 100px;
+    width: 100px;
+}
+
+.cell-1 {
+    align-content: center;
+    border-right: 5px double black;
+    border-bottom: 5px double black;
+}
+
+.cell-2 {
+    align-content: center;
+    border-left: 5px double black;
+    border-right: 5px double black;
+    border-bottom: 5px double black;
+}
+
+.cell-3 {
+    align-content: center;
+    border-left: 5px double black;
+    border-bottom: 5px double black;
+}
+
+.cell-4 {
+    align-content: center;
+    border-top: 5px double black;
+    border-right: 5px double black;
+    border-bottom: 5px double black;
+}
+
+.cell-5 {
+    align-content: center;
+    border-top: 5px double black;
+    border-left: 5px double black;
+    border-right: 5px double black;
+    border-bottom: 5px double black;
+}
+
+.cell-6 {
+    align-content: center;
+    border-top: 5px double black;
+    border-left: 5px double black;
+    border-bottom: 5px double black;    
+}
+
+.cell-7 {
+    align-content: center;
+    border-top: 5px double black;
+    border-right: 5px double black;
+}
+
+.cell-8 {
+    align-content: center;
+    border-top: 5px double black;
+    border-left: 5px double black;
+    border-right: 5px double black;
+}
+
+.cell-9 {
+    align-content: center;
+    border-top: 5px double black;
+    border-left: 5px double black;
+}
+
+.result {
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.reset-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+    height: 30px;
+    width: 70px;
+}
+
+.js-com.spin-bounce {
+    animation: spin 1s linear 1.2s 2,
+               bounce 0.6s ease-in-out 2;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.js-com.fall-com {
+    animation: fall-com 1s ease-in-out forwards;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.js-player.spin-bounce {
+    animation: spin 1s linear 1.2s 2,
+               bounce 0.6s ease-in-out 2;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.js-player.fall-player {
+    animation: fall-player 1s ease-in-out forwards;
+    transform-origin: center;
+    will-change: transform;
+}
+
+/* Animations */
+@keyframes spin {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(360deg);}
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%    { transform: translateY(-12px); }
+}
+
+@keyframes fall-player {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(90deg);}
+}
+
+@keyframes fall-com {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(-90deg);}
+}

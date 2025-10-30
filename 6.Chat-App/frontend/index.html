@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat App</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <header>
+                <h1>Chat App</h1>
+            </header>
+            <p>Welcome</p>
+        </div>
+        <div class="middle-bar js-chat-content">
+            <!-- chat list -->
+             <ul class="text-container"></ul>
+        </div>
+        <div class="bottom-bar">
+            <textarea class="input" id="js-input" autocomplete="off" placeholder="Type a message...."></textarea>
+            <button class="send-button" id="js-sendButton">Send</button>
+        </div>
+    </div>
+
+    <script type="module" src="./scripts.js"></script>
+</body>
+</html>

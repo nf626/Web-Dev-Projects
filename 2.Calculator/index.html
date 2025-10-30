@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="calculator-body">
+        <h2>Standard Calculator</h2>
+        <div class="screen">
+            <input type="text" class="input-screen js-input-screen"></input>
+            <input type="text" class="calc-screen js-calc-screen"></input>
+        </div>
+        <div class="calc-grid">
+            <button class="buttons" onclick="percentage()">%</button>
+            <button class="clearButton" onclick="clearScreen('CE')">CE</button>
+            <button class="clearButton" onclick="clearScreen('C')">C</button>
+            <button class="clearButton" onclick="clearScreen('backspace')">&#x232B;</button>
+            <button class="buttons" onclick="appendNumber('7')">7</button>
+            <button class="buttons" onclick="appendNumber('8')">8</button>
+            <button class="buttons" onclick="appendNumber('9')">9</button>
+            <button class="buttons" onclick="appendOperator('&divide;')">&divide;</button>
+            <button class="buttons" onclick="appendNumber('4')">4</button>
+            <button class="buttons" onclick="appendNumber('5')">5</button>
+            <button class="buttons" onclick="appendNumber('6')">6</button>
+            <button class="buttons" onclick="appendOperator('&times;')">&times;</button>
+            <button class="buttons" onclick="appendNumber('1')">1</button>
+            <button class="buttons" onclick="appendNumber('2')">2</button>
+            <button class="buttons" onclick="appendNumber('3')">3</button>
+            <button class="buttons" onclick="appendOperator('&minus;')">&minus;</button>
+            <button class="buttons" onclick="plus_minus()">&plusmn;</button>
+            <button class="buttons" onclick="appendNumber('0')">0</button>
+            <button class="buttons" onclick="decimal('.')">.</button>
+            <button class="buttons" onclick="appendOperator('+')">&plus;</button>
+        </div>
+        <button class="equalButton" onclick="sum('=')">&equals;</button>
+    </div>
+    <script src="./scripts.js"></script>
+</body>
+</html>

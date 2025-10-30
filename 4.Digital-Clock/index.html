@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="clock">
+            <div class="screen">
+                <div class="top-bar">
+                    <div class="display-hour"></div>
+                    <div class="alarm-title"></div>
+                    <div class="alarm-clock">
+                        <img id="alarm-pic" src="./images/alarm_30dp_03D003_FILL0_wght400_GRAD0_opsz24.svg">
+                    </div>
+                </div>
+                <div class="date-time"></div>
+                <div class="bottom-bar"></div>
+            </div>
+            <div class="side-buttons">
+                <i id="js-up-arrow" class="arrow-up"></i>
+                <i id="js-down-arrow" class="arrow-down"></i>
+                <button id="js-ok-button">OK</button>
+                <button id="js-cancel-button">CANCEL</button>
+            </div>
+            <div class="time-buttons">
+                <button id="js-hours-button">HOURS</button>
+                <button id="js-minutes-button">MINUTES</button>
+                <button id="js-seconds-button">SECONDS</button>
+            </div>
+        </div>
+        <div class="bottom-buttons">
+            <button onclick="alarm()">ALARM</button>
+            <button id="alarm_24Hour" onclick="button_24Hour()">24H</button>
+            <button id="alarm_12Hour" onclick="button_12Hour()">12H</button>
+        </div>
+    </div>
+    <script src="./scripts.js"></script>
+</body>
+</html>

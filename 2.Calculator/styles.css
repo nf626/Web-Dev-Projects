@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-image: radial-gradient(white 5%, rgb(112, 208, 240) 40%, rgb(49, 168, 247) 60%);
+}
+.calculator-body {
+    display: block;
+    width: 310px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: 3px solid black;
+    background-color: rgb(128, 127, 127);
+    border-radius: 20px;
+}
+h2 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    font-family:sans-serif;
+    margin: 10px;
+}
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    height: 90px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 2px 10px;
+    background-color: white;
+}
+.input-screen {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 25px;
+    border-radius: 10px;
+    padding: 3px;
+    width: 100%;
+    text-align: end;
+    caret-color: transparent;
+    font-size: 16px;
+    border: none;
+}
+.input-screen:focus, .calc-screen:focus {
+    outline: none;
+}
+.calc-screen {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 70px;
+    border-radius: 10px;
+    font-size: 40px;
+    padding: 6px;
+    width: 100%;
+    text-align: end;
+    caret-color: transparent;
+    border: none;
+}
+.calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    height: 300px;
+    padding: 20px;
+    column-gap: 8px;
+    row-gap: 8px;
+}
+.buttons:hover, .equalButton:hover, .clearButton:hover {
+    background-color: rgba(238, 199, 144, 0.7);
+}
+.buttons:active {
+    background-color: rgb(238, 199, 144);
+}
+.equalButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 42px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.equalButton:active {
+    background-color: rgb(69, 219, 107);
+}
+.clearButton:active {
+    background-color: red;
+}
+button {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid black;
+    background-color: rgb(248, 177, 47);
+}

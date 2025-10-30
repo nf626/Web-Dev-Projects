@@ -1,0 +1,88 @@
+/* basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* body */
+body {
+    display: flex;
+    min-height: 50vh;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:lightcyan;
+}
+
+/* container */
+.container {
+    margin: 50px;
+    padding: 20px;
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 10px 10px 18px #888888;
+}
+
+/* heading */
+.heading {
+    border: 2px solid lightgrey;
+    font-weight: 700;
+    padding: 10px;
+    background-color: rgb(245, 61, 61);
+    color: white;
+    border-radius: 10px;
+}
+
+/* user input and buttons */
+.addTaskContainer {
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+.addTaskContainer,
+.todo-grid {
+    display: grid;
+    grid-template-columns: 200px 140px 100px;
+    column-gap: 20px;
+    row-gap: 20px;
+    align-items: first baseline;
+}
+
+.taskInput {
+    padding: 10px;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+.dateInput {
+    padding: 10px;
+    border-width: 2px;
+    border-radius: 10px;
+}
+
+#addButton,
+.deleteButton {
+    color: white;
+    background-color: rgb(4, 50, 255);
+    border-radius: 5px;
+    padding: 4px 15px 4px 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.deleteButton {
+    background-color: rgb(220, 5, 5);
+}
+
+.taskList {
+    border: 1px solid lightgrey;
+    overflow-wrap: break-word;
+    border-radius: 3px;
+}
+
+.dateList {
+    border: 2px solid lightgrey;
+    border-radius: 5px;
+}

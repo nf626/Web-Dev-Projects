@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body class="background-image">
+    <div class="container">
+        <div class="weatherContainer">
+            <header>
+                <h1>Weather</h1>
+            </header>
+            <div class="search-container">
+                <input class="inputBar" type="text" id="js-search-input" placeholder="Enter City">
+                <button class="searchButton" id="js-search-button" onclick="">Search</button>
+                <ul id="js-list"></ul>
+            </div>
+            <section>
+                <div class="weatherStatus">
+                    <div class="image"></div>
+                    <div class="info">
+                        <header>
+                            <h3 class="js-name"></h3>
+                        </header>
+                        <p class="js-temp"></p>
+                        <p class="js-description"></p>
+                    </div>
+                </div>
+                <div class="forecast-container">
+                    <div class="js-forecast">
+                        <header>
+                            <h5 class="js-day"></h5>
+                        </header>
+                        <div class="js-icon"></div>
+                        <p class="js-forecast-temp"></p>
+                    </div>
+                    <div class="js-forecast">
+                        <header>
+                            <h5 class="js-day"></h5>
+                        </header>
+                        <div class="js-icon"></div>
+                        <p class="js-forecast-temp"></p>
+                    </div>
+                    <div class="js-forecast">
+                        <header>
+                            <h5 class="js-day"></h5>
+                        </header>
+                        <div class="js-icon"></div>
+                        <p class="js-forecast-temp"></p>
+                    </div>
+                    <div class="js-forecast">
+                        <header>
+                            <h5 class="js-day"></h5>
+                        </header>
+                        <div class="js-icon"></div>
+                        <p class="js-forecast-temp"></p>
+                    </div>
+                    <div class="js-forecast">
+                        <header>
+                            <h5 class="js-day"></h5>
+                        </header>
+                        <div class="js-icon"></div>
+                        <p class="js-forecast-temp"></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script type="module" src="./scripts.js"></script>
+</body>
+</html>
