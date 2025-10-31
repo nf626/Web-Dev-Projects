@@ -1,7 +1,7 @@
 # Tic-Tac-Toe
 
 ## Description
-Play a game of Tic-Tac-Toe versus a Computer.
+A Holberton inspired Tic-Tac-Toe game where you play against a Computer.
 
 ## Installation
 ### Programming Languages
