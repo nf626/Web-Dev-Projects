@@ -37,7 +37,25 @@ function clearScreen(clearValue) {
     if (calcResetState === false) {
         // Clear entry
         if (clearValue === 'CE') {
-            inputArray.pop();
+            let lastOpIndex = -1;
+
+            // Find operator exists
+            for (let i = inputArray.length - 1; i >= 0; i--) {
+                if (opArray.includes(inputArray[i])) {
+                    lastOpIndex = i; // get operator index
+                    break;
+                }
+            }
+
+            // Delete value after operator
+            if (inputArray[lastOpIndex]) {
+                inputArray.splice(lastOpIndex + 1, inputArray.length - lastOpIndex);
+            }
+            // No operator
+            else {
+                inputArray.length = 0;
+            }
+
             calc_screen.value = "";
             calcArray.length = 0;
         }
@@ -155,26 +173,7 @@ function percentage() {
 
     let lastNumber = parseFloat(lastNumberStr);
 
-    // Case 1: no operator → just turn number into percentage
-    if (lastOpIndex === -1) {
-        lastNumber = lastNumber / 100;
-    } else {
-        // Get the base (number before the operator)
-        let baseArr = inputArray.slice(0, lastOpIndex);
-        let baseStr = baseArr.join("");
-        let base = parseFloat(baseStr);
-
-        switch (lastOp) {
-            case "\u002B": // +
-            case "\u2212": // −
-                lastNumber = (base * lastNumber) / 100;
-                break;
-            case "\u00D7": // ×
-            case "\u00F7": // ÷
-                lastNumber = lastNumber / 100;
-                break;
-        }
-    }
+    lastNumber = lastNumber / 100;
 
     // Replace last number in inputArray
     inputArray.splice(
