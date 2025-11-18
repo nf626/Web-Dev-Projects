@@ -167,33 +167,33 @@ function backgroundImage(weather) {
             break;
 
         case "Thunderstorm":
-        body.classList.add("storm");
-        
-        weatherBorder.style.border = "2px solid rgba(0, 0, 0, 0.4)";
-        weatherBorder.style.borderRadius = "15px";
-        weatherBorder.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
+            body.classList.add("storm");
+            
+            weatherBorder.style.border = "2px solid rgba(0, 0, 0, 0.4)";
+            weatherBorder.style.borderRadius = "15px";
+            weatherBorder.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
 
-        forecastBorder.forEach(border => {
-            border.style.border = "1px solid rgba(0, 0, 0, 0.4)";
-            border.style.borderRadius = "15px";
-            border.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
-        });
+            forecastBorder.forEach(border => {
+                border.style.border = "1px solid rgba(0, 0, 0, 0.4)";
+                border.style.borderRadius = "15px";
+                border.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
+            });
 
-        break;
+            break;
 
         case "Snow":
-        body.classList.add("snow");
-        
-        weatherBorder.style.border = "2px solid rgba(0, 0, 0, 0.4)";
-        weatherBorder.style.borderRadius = "15px";
-        weatherBorder.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
+            body.classList.add("snow");
+            
+            weatherBorder.style.border = "2px solid rgba(0, 0, 0, 0.4)";
+            weatherBorder.style.borderRadius = "15px";
+            weatherBorder.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
 
-        forecastBorder.forEach(border => {
-            border.style.border = "1px solid rgba(0, 0, 0, 0.4)";
-            border.style.borderRadius = "15px";
-            border.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
-        });
+            forecastBorder.forEach(border => {
+                border.style.border = "1px solid rgba(0, 0, 0, 0.4)";
+                border.style.borderRadius = "15px";
+                border.style.boxShadow = "inset 0 0 10px rgb(175, 175, 175)";
+            });
 
-        break;
+            break;
     }
 }

@@ -3,27 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Chat App</title>
+    <title>Chat App Home</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <div class="container">
-        <div class="top-bar">
-            <header>
-                <h1>Chat App</h1>
-            </header>
-            <p>Welcome</p>
-        </div>
-        <div class="middle-bar js-chat-content">
-            <!-- chat list -->
-             <ul class="text-container"></ul>
-        </div>
-        <div class="bottom-bar">
-            <textarea class="input" id="js-input" autocomplete="off" placeholder="Type a message...."></textarea>
-            <button class="send-button" id="js-sendButton">Send</button>
+    <div class="top">
+        <h1>Chat App</h1>
+        <div class="name-container">
+            <input id="js-user" type="text" placeholder="Enter Username" maxlength="20">
+            <button id="js-cd-button" type="button" class="cd-button">Connect</button>
         </div>
     </div>
-
-    <script type="module" src="./scripts.js"></script>
+    <div class="container">
+        <div class="rooms">
+            <h3 class="titles">Rooms</h3>
+            <div class="roomList">
+                <!-- Room list -->
+                <button class="selectRoom">room 1</button>
+                <button class="selectRoom">room 2</button>
+                <button class="selectRoom">room 3</button>
+            </div>
+            <button id="leaveButton">Leave</button>
+        </div>
+        <div class="display">
+            <div class="message-container" id="js-message-container">
+                <h3 class="titles" id="js-message-title">Public</h3>
+                <p class="systemMessage"></p>
+                <ul class="listMessages" id="js-list-messages">
+                    <!-- Messages -->
+                </ul>
+            </div>
+            <div class="input-container">
+                <textarea class="message-bar" id="js-message" autocomplete="off" placeholder="Type a message...."></textarea>
+                <button class="send-button" id="js-sendButton">Send</button>
+            </div>
+        </div>
+        <div class="online">
+            <h3 class="titles">Online</h3>
+            <ul id="js-online">
+                <!-- User online list -->
+            </ul>
+        </div>
+    </div>
+    <script defer type="module" src="./scripts.js"></script>
 </body>
 </html>

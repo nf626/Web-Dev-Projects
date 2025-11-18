@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     font-family: sans-serif, 'Courier New', Courier, monospace;
     background-image: linear-gradient(to top,
@@ -14,6 +15,7 @@ body {
     background-repeat: no-repeat;
     height: 100vh;
 }
+
 .container {
     display: flex;
     flex-direction: column;
@@ -31,10 +33,12 @@ body {
         rgb(254, 191, 74) 80%,
         rgb(237, 167, 35) 100%);
 }
+
 .clock {
     display: flex;
     width: 100%;
 }
+
 .screen {
     display: flex;
     flex-direction: column;
@@ -53,6 +57,7 @@ body {
     border-radius: 20px;
     background-color: rgb(47, 47, 47);
 }
+
 .top-bar {
     display: flex;
     flex-direction: row;
@@ -60,27 +65,32 @@ body {
     font-size: 20px;
     font-family: "Orbitron", sans-serif;
 }
+
 .display-hour {
     display: flex;
     flex: 1;
     padding-left: 20px;
     font-size: 16px;
 }
+
 .alarm-title {
     display: flex;
     flex: 1;
     justify-content: center;
     font-size: 16px;
 }
+
 .alarm-clock {
     display: flex;
     flex: 1;
     justify-content: flex-end;
     padding-right: 20px;
 }
+
 #alarm-pic {
     opacity: 0;
 }
+
 .date-time {
     display: flex;
     flex: 1;
@@ -88,12 +98,14 @@ body {
     padding-top: 40px;
     text-align: center;
 }
+
 .bottom-bar {
     display: flex;
     font-size: 16px;
     justify-content: center;
     flex: 0.5;
 }
+
 .side-buttons {
     display: flex;
     flex-direction: column;
@@ -101,12 +113,14 @@ body {
     padding-top: 10px;
     margin-left: 10px;
 }
+
 .side-buttons > button {
     margin-bottom: 10px;
     font-weight: 700;
     height: 30px;
     width: 60px;
 }
+
 .arrow-up {
     border: solid rgb(105,98,210);
     border-width: 0 10px 10px 0;
@@ -116,10 +130,12 @@ body {
     cursor: pointer;
     border-bottom-right-radius: 3px;
 }
+
 .arrow-up:active {
     border-right-color: rgb(82,70,188);
     border-bottom-color: rgb(82,70,188);    
 }
+
 .arrow-down {
     border: solid rgb(105,98,210);
     border-width: 0 10px 10px 0;
@@ -129,10 +145,12 @@ body {
     cursor: pointer;
     border-bottom-right-radius: 3px;
 }
+
 .arrow-down:active {
     border-right-color: rgb(82,70,188);
     border-bottom-color: rgb(82,70,188);
 }
+
 .time-buttons {
     display: flex;
     flex-direction: column;
@@ -140,6 +158,7 @@ body {
     padding: 5px;
     margin-left: 10px;
 }
+
 .time-buttons > button {
     height: 30px;
     width: 60px;
@@ -147,6 +166,7 @@ body {
     margin-left: 5px;
     margin-right: 5px;
 }
+
 .bottom-buttons {
     display: flex;
     flex-direction: row;
@@ -154,11 +174,13 @@ body {
     width: 400px;
     padding-bottom: 10px;
 }
+
 .bottom-buttons > button {
     height: 30px;
     width: 60px;
     font-weight: 700;
 }
+
 button {
     border-radius: 10px;
     background-color: rgb(105,98,210);
@@ -166,6 +188,7 @@ button {
     cursor: pointer;
     border: 2px solid rgb(71, 63, 184);
 }
+
 button:active {
     background-color: rgb(82,70,188);
     box-shadow: inset 0 0 2px rgb(173,175,244);
