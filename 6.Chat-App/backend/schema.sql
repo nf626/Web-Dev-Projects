@@ -8,8 +8,9 @@ USE chat_app;
 CREATE TABLE IF NOT EXISTS Users (
     userID VARCHAR(40) NOT NULL,
     userName VARCHAR(20) NOT NULL,
+    socketID VARCHAR(40) NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT NOW(),
-    PRIMARY KEY (userID)
+    PRIMARY KEY (socketID)
 );
 
 --@block
@@ -33,31 +34,10 @@ VALUES
 CREATE TABLE IF NOT EXISTS Messages (
     messageID INT AUTO_INCREMENT NOT NULL,
     content TEXT NOT NULL,
-    created TIMESTAMP NOT NULL DEFAULT NOW(),
-    userID_fk VARCHAR(40),
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    socketID_fk VARCHAR(40),
     roomID_fk INT,
     PRIMARY KEY (messageID),
-    FOREIGN KEY (userID_fk) REFERENCES Users(userID) ON DELETE CASCADE,
+    FOREIGN KEY (socketID_fk) REFERENCES Users(socketID) ON DELETE CASCADE,
     FOREIGN KEY (roomID_fk) REFERENCES Rooms(roomID) ON DELETE CASCADE
 );
-
---@block
--- Example
-INSERT INTO Users (userID, userName)
-VALUES
-    (1, 'John'),
-    (2, 'Alan'),
-    (3, 'Betty');
-
-INSERT INTO Messages (messageID, content, userID_fk, roomID_fk)
-VALUES
-    (1, "test 1", 1, 1),
-    (2, "test 2", 2, 2),
-    (3, "test 2", 3, 1),
-    (4, "test 3", 3, 2),
-    (5, "test 3", 2, 3),
-    (6, "test 1", 1, 3);
-
-SELECT * FROM Messages INNER JOIN Room
-ON Messages.roomID_fk = Room.roomID
-WHERE roomID_fk = 2;

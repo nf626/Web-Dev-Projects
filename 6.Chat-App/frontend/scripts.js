@@ -25,6 +25,7 @@ const leaveBtn = document.getElementById("leaveButton");
 // Users online/offline list
 const listUsers = document.getElementById("js-online");
 
+let userUUID = "";
 userName.value = "";
 
 // User Name
@@ -36,9 +37,11 @@ cdButton.addEventListener("click", (event) => {
         if (!userName.value) {
             console.log("No Username");
         } else {
-            socket.connect();
+            title.innerText = "Public";
+            userUUID = crypto.randomUUID();
 
-            socket.emit("list users", userName.value);
+            socket.connect();            
+            socket.emit("list users", userName.value, userUUID);
             socket.emit("join room", "public");
 
             if (userContainer && userName) {
@@ -53,7 +56,6 @@ cdButton.addEventListener("click", (event) => {
     // Disconnect
     else if (cdButton.innerText === "Disconnect") {
         socket.disconnect();
-        window.location.reload(true);
     }
 });
 
@@ -82,7 +84,7 @@ sendButton.addEventListener("click", (event) => {
     if (userInput.value && socket.connected) {
         socket.emit("chat message", userInput.value, userName.value); // Send message to server-side
 
-        // New HTML list - message
+        // Create User message
         const item = document.createElement("li");
         item.innerHTML = `<p>${userInput.value}</p><div>${userName.value}</div>`;
         listMessages.appendChild(item);
@@ -98,10 +100,10 @@ sendButton.addEventListener("click", (event) => {
 });
 
 // Listens for messages
-socket.on("chat message", (msg, otherUser) => {
-    // Create messages
+socket.on("chat message", (msg, userName) => {
+    // Create other users messages
     const item = document.createElement("li");
-    item.innerHTML = `<div>${otherUser}</div><p>${msg}</p>`;
+    item.innerHTML = `<div>${userName}</div><p>${msg}</p>`;
     listMessages.appendChild(item);
     item.classList.add("receiveMessage");
 
@@ -111,8 +113,44 @@ socket.on("chat message", (msg, otherUser) => {
     time.classList.add("timeStamp");
     time.style.alignSelf = "flex-start";
     time.style.textAlign = "start";
+});
 
-    window.scrollTo(0, document.body.scrollHeight); // Go to new message
+// Room messages
+socket.on("room messages", (response) => {
+    listMessages.innerHTML = "";
+
+    response.forEach((data) => {
+        const format = data.created_at.replace(/-/g, "/");
+        const jsformat = format.replace(/[T]/g, " ");
+        const timeData = new Date(Date.parse(jsformat)).toLocaleTimeString();
+
+        if (data.roomName === title.innerText.toLocaleLowerCase()) {
+            if (userUUID === data.userID) {
+                const item = document.createElement("li");
+                item.innerHTML = `<p>${data.content}</p><div>${data.userName}</div>`;
+                listMessages.appendChild(item);
+                item.classList.add("sendMessage");
+
+                const time = document.createElement("p");
+                time.innerText = timeData;
+                listMessages.appendChild(time);
+                time.classList.add("timeStamp");
+
+            } else {
+                const item = document.createElement("li");
+                item.innerHTML = `<div>${data.userName}</div><p>${data.content}</p>`;
+                listMessages.appendChild(item);
+                item.classList.add("receiveMessage");
+
+                const time = document.createElement("p");
+                time.innerText = timeData;
+                listMessages.appendChild(time);
+                time.classList.add("timeStamp");
+                time.style.alignSelf = "flex-start";
+                time.style.textAlign = "start";
+            }
+        } 
+    });
 });
 
 // Public User list
@@ -141,7 +179,6 @@ roomSelect.forEach((btn) => {
 
             roomSelect.forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
-
             leaveBtn.style.opacity = 1;
         }
     });

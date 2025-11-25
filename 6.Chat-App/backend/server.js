@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { createUsers, createMessages, getRoom, getMessages } from './database.js';
+import { createUsers, createMessages, getRoom, getMessages, getUser } from './database.js';
 
 const PORT = process.env.PORT || 8080;
 const userObj = {};
@@ -51,13 +51,11 @@ io.on("connection", (socket) => {
     /**
      * Register username
      */
-    socket.on("list users", async (user) => {
-        userObj[socket.id] = user;
-
-        console.log(`User connected: ${user}`);
+    socket.on("list users", async (userName, userUUID) => {
+        userObj[socket.id] = userName;
         socket.join("public");
 
-        await createUsers(socket.id, user); // mysql - create user
+        await createUsers(userUUID, userName, socket.id);
         userList();
     });
 
@@ -97,15 +95,16 @@ io.on("connection", (socket) => {
         // Update everyone’s room user list
         io.to(roomName).except("public").emit("room users", roomObj[roomName]);
 
-        console.log(`${username} joined ${roomName}`);
-
         await getRoom(roomName);
+
+        const response = await getMessages(roomName); // room messages
+        io.to(roomName).emit("room messages", response);
     });
 
     /**
      * Leave room
      */
-    socket.on("leave room", (roomName) => {
+    socket.on("leave room", async (roomName) => {
         const username = userObj[socket.id];
         if (!username) return;
 
@@ -127,7 +126,9 @@ io.on("connection", (socket) => {
 
         // Send system message
         socket.emit("system message", `You joined ${roomName}`);
-        console.log(`${username} joined public`);
+
+        const response = await getMessages(roomName); // room messages
+        io.to(roomName).emit("room messages", response);
     });
 
     /**
@@ -138,10 +139,8 @@ io.on("connection", (socket) => {
         
         try {
             await createMessages(socket.id, room, msg);
+            socket.broadcast.to(room).emit("chat message", msg, userName);
 
-            const data = await getMessages(socket.id, room);
-
-            socket.broadcast.to(room).emit("chat message", data.content, userName);
         } catch (error) {
             console.log(error);
         }
@@ -162,7 +161,6 @@ io.on("connection", (socket) => {
         
         userList();
 
-        console.log(`${username || socket.id} disconnected`);
     });
 });
 

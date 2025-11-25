@@ -19,12 +19,12 @@ const pool = mysql.createPool({
 /**
  * User
  */
-export async function createUsers(id, user) {
+export async function createUsers(id, user, socket) {
     try {
         await pool.query(`
-            INSERT INTO Users (userID, userName)
-            VALUES (?, ?)
-        `, [id, user]);
+            INSERT INTO Users (userID, userName, socketID)
+            VALUES (?, ?, ?)
+        `, [id, user, socket]);
 
         return await getUser(id);
 
@@ -73,13 +73,13 @@ export async function getRoom(room_name) {
  * @param {msg, room, user} x - Messages, Room ID and User ID.
  * @returns {promise} Saves messages, room and user ID.
  */
-export async function createMessages(userID, room_name, msg) {
+export async function createMessages(socketID, room_name, msg) {
     try {
         const roomID = await getRoom(room_name);
         await pool.query(`
-            INSERT INTO Messages (content, userID_fk, roomID_fk)
+            INSERT INTO Messages (content, socketID_fk, roomID_fk)
             VALUES (?, ?, ?)
-        `, [msg, userID, roomID]);
+        `, [msg, socketID, roomID]);
 
     } catch (error) {
         console.log(error);
@@ -90,22 +90,19 @@ export async function createMessages(userID, room_name, msg) {
  * Get messages saved in database.
  * @returns {promise} messages saved.
  */
-export async function getMessages(userID, room) {
+export async function getMessages(room) {
     const roomID = await getRoom(room);
     try {
         const [ rows ] = await pool.query(`
-            SELECT content, userName, roomName, created_at FROM Messages
+            SELECT userID, content, userName, roomName, socketID, created_at FROM Messages
             INNER JOIN Rooms
             ON Messages.roomID_fk = Rooms.roomID
             INNER JOIN Users
-            ON Messages.userID_fk = Users.userID
+            ON Messages.socketID_fk = Users.socketID
             WHERE roomID_fk = ?
-            ORDER BY roomName;
-        `, [roomID, userID]);
+            ORDER BY created_at;
+        `, [roomID]);
 
-        console.log(rows);
-
-        console.log(Object.values(rows));
         return rows;
 
     } catch (error) {
