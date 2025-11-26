@@ -17,7 +17,11 @@ const pool = mysql.createPool({
 }).promise();
 
 /**
- * User
+ * Creates Users.
+ * @param {string} id - User ID.
+ * @param {string} user - Username.
+ * @param {string} socket - Socket ID.
+ * @returns {object} User object created from database.
  */
 export async function createUsers(id, user, socket) {
     try {
@@ -26,13 +30,18 @@ export async function createUsers(id, user, socket) {
             VALUES (?, ?, ?)
         `, [id, user, socket]);
 
-        return await getUser(id);
+        return getUser(id);
 
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 }
 
+/**
+ * Retrieves User.
+ * @param {string} id - User ID.
+ * @returns {object} Shows user object.
+ */
 export async function getUser(id) {
     try {
         const [ rows ] = await pool.query(`
@@ -43,14 +52,16 @@ export async function getUser(id) {
         return rows[0];
 
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 }
 
 /* --------------------------------------------------------*/
 
 /**
- * Room
+ * Creates Rooms.
+ * @param {string} room_name - Room name.
+ * @returns {string} Room ID from database.
  */
 export async function getRoom(room_name) {
     try {
@@ -59,19 +70,21 @@ export async function getRoom(room_name) {
             WHERE roomName = ?
         `, [room_name]);
 
-        return await rows[0].roomID;
+        return rows[0].roomID;
 
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 }
 
 /* --------------------------------------------------------*/
 
 /**
- * Create and Save user messages.
- * @param {msg, room, user} x - Messages, Room ID and User ID.
- * @returns {promise} Saves messages, room and user ID.
+ * Create and save user messages.
+ * @param {string} socketID - Socket ID.
+ * @param {string} room_name - Room name.
+ * @param {string} msg - User messages.
+ * @returns {none}
  */
 export async function createMessages(socketID, room_name, msg) {
     try {
@@ -81,14 +94,16 @@ export async function createMessages(socketID, room_name, msg) {
             VALUES (?, ?, ?)
         `, [msg, socketID, roomID]);
 
+        return;
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 }
 
 /**
  * Get messages saved in database.
- * @returns {promise} messages saved.
+ * @param {string} room - Room name.
+ * @returns {array} User messages stored in array of objects.
  */
 export async function getMessages(room) {
     const roomID = await getRoom(room);
@@ -100,12 +115,12 @@ export async function getMessages(room) {
             INNER JOIN Users
             ON Messages.socketID_fk = Users.socketID
             WHERE roomID_fk = ?
-            ORDER BY created_at;
+            ORDER BY created_at
         `, [roomID]);
 
         return rows;
 
     } catch (error) {
-        console.log(error);
+        throw new Error(error);
     }
 }

@@ -1,5 +1,5 @@
 import { io } from "https://cdn.socket.io/4.8.1/socket.io.esm.min.js";
-import { timeStamp } from "./functions.js";
+import { timeStamp, createUserMessages, createOtherMessages } from "./functions.js";
 
 // Connect to server
 const socket = io("http://localhost:8000/", {
@@ -14,7 +14,7 @@ const cdButton = document.getElementById("js-cd-button");
 // Message container
 const title = document.getElementById("js-message-title");
 const sysMessage = document.querySelector(".systemMessage");
-const listMessages = document.getElementById("js-list-messages");
+export const listMessages = document.getElementById("js-list-messages");
 // User enters text + button
 const userInput = document.getElementById("js-message");
 const sendButton = document.getElementById("js-sendButton");
@@ -32,7 +32,7 @@ userName.value = "";
 cdButton.addEventListener("click", (event) => {
     event.preventDefault();
 
-    // Connect
+    // Connect to server
     if (cdButton.innerText === "Connect") {
         if (!userName.value) {
             console.log("No Username");
@@ -53,13 +53,14 @@ cdButton.addEventListener("click", (event) => {
             }
         }
     }
-    // Disconnect
-    else if (cdButton.innerText === "Disconnect") {
+    // Disconnect from server
+    else if (socket.connected && cdButton.innerText === "Disconnect") {
+        window.location.reload(true);
         socket.disconnect();
     }
 });
 
-// Socket connected event
+// Socket connect event
 socket.on("connect", async () => {
     cdButton.innerText = "Disconnect";
     cdButton.style.backgroundColor = "rgba(237, 0, 0, 1)";
@@ -73,11 +74,13 @@ socket.on("disconnect", () => {
     cdButton.style.backgroundColor = "";
     cdButton.style.color = "";
 
-    window.location.reload(true);
-    return;
+    if (socket.disconnected) {
+        window.location.reload(true);
+        return;
+    }
 });
 
-// Send message
+// Send user messages
 sendButton.addEventListener("click", (event) => {
     event.preventDefault(); // Stops the browser's default action associated with that event
 
@@ -85,16 +88,7 @@ sendButton.addEventListener("click", (event) => {
         socket.emit("chat message", userInput.value, userName.value); // Send message to server-side
 
         // Create User message
-        const item = document.createElement("li");
-        item.innerHTML = `<p>${userInput.value}</p><div>${userName.value}</div>`;
-        listMessages.appendChild(item);
-        item.classList.add("sendMessage");
-
-        const time = document.createElement("p");
-        time.innerText = timeStamp();
-        listMessages.appendChild(time);
-        time.classList.add("timeStamp");
-
+        createUserMessages(userInput.value, userName.value, timeStamp());
         userInput.value = "";
     }
 });
@@ -102,20 +96,10 @@ sendButton.addEventListener("click", (event) => {
 // Listens for messages
 socket.on("chat message", (msg, userName) => {
     // Create other users messages
-    const item = document.createElement("li");
-    item.innerHTML = `<div>${userName}</div><p>${msg}</p>`;
-    listMessages.appendChild(item);
-    item.classList.add("receiveMessage");
-
-    const time = document.createElement("p");
-    time.innerText = timeStamp();
-    listMessages.appendChild(time);
-    time.classList.add("timeStamp");
-    time.style.alignSelf = "flex-start";
-    time.style.textAlign = "start";
+    createOtherMessages(msg, userName, timeStamp());
 });
 
-// Room messages
+// Room messages from database
 socket.on("room messages", (response) => {
     listMessages.innerHTML = "";
 
@@ -126,28 +110,9 @@ socket.on("room messages", (response) => {
 
         if (data.roomName === title.innerText.toLocaleLowerCase()) {
             if (userUUID === data.userID) {
-                const item = document.createElement("li");
-                item.innerHTML = `<p>${data.content}</p><div>${data.userName}</div>`;
-                listMessages.appendChild(item);
-                item.classList.add("sendMessage");
-
-                const time = document.createElement("p");
-                time.innerText = timeData;
-                listMessages.appendChild(time);
-                time.classList.add("timeStamp");
-
+                createUserMessages(data.content, data.userName, timeData);
             } else {
-                const item = document.createElement("li");
-                item.innerHTML = `<div>${data.userName}</div><p>${data.content}</p>`;
-                listMessages.appendChild(item);
-                item.classList.add("receiveMessage");
-
-                const time = document.createElement("p");
-                time.innerText = timeData;
-                listMessages.appendChild(time);
-                time.classList.add("timeStamp");
-                time.style.alignSelf = "flex-start";
-                time.style.textAlign = "start";
+                createOtherMessages(data.content, data.userName, timeData);
             }
         } 
     });

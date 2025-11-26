@@ -2,8 +2,7 @@
 <!-- Image -->
 
 ## Purpose
-These projects are designed and developed for education and self-learning purposes.\
-Feel free to look around and use it.
+These projects are designed and developed for education and self-learning purposes.
 
 ## Projects
 ### 1. To-Do List App
@@ -62,7 +61,7 @@ HTML5 &nbsp;|&nbsp; CSS3 &nbsp;|&nbsp; JAVASCRIPT
 ### 5. Weather App
 [Weather Project](./5.Weather-App/)
 #### Programming Languages
-HTML5 &nbsp;|&nbsp; CSS3 &nbsp;|&nbsp; JAVASCRIPT &nbsp;|&nbsp; API
+HTML5 &nbsp;|&nbsp; CSS3 &nbsp;|&nbsp; JAVASCRIPT
 #### Status: Completed
 
 <img src="./images/weather/weather-app.png" alt="weather app" width=250 height=150> &nbsp;
@@ -70,14 +69,22 @@ HTML5 &nbsp;|&nbsp; CSS3 &nbsp;|&nbsp; JAVASCRIPT &nbsp;|&nbsp; API
 <img src="./images/weather/weather-example.png" alt="example 1" width=250 height=150> &nbsp;
 <img src="./images/weather/weather-example2.png" alt="example 2" width=250 height=150> &nbsp;
 
-
 <hr>
 
 ### 6. Chat App
-[Chat Project](./6.Chat-App/)
-#### Programming Languages and Frameworks
-HTML5 &nbsp;|&nbsp; CSS3 &nbsp;|&nbsp; JAVASCRIPT &nbsp;|&nbsp; Node.js + Express.js
-#### Status: In-Progress
+[Chat-App Project](./6.Chat-App/)
+#### Programming Languages
+HTML5 &nbsp;|&nbsp; CSS3 &nbsp;|&nbsp; JAVASCRIPT
+#### Runtime Environment & Frameworks
+NODE JS &nbsp;|&nbsp; EXPRESS JS
+#### DataBase
+MYSQL
+#### Status: Completed
+
+<img src="./images/chat-app/home.png" alt="Default" width=250 height=150> &nbsp;
+<img src="./images/chat-app/login-chat.png" alt="Login-chat" width=250 height=150> &nbsp;
+<img src="./images/chat-app/chat-example.png" alt="example 1" width=250 height=150> &nbsp;
+<img src="./images/chat-app/room-example.png" alt="example 2" width=250 height=150> &nbsp;
 
 <hr>
 
@@ -102,5 +109,6 @@ Nigel Feng
 
 ## Acknowledgements
 Thank you to jscrambler for giving inspiration to these projects.\
+Date Read: August 2025. \
 Article: Top 7 HTML, CSS and JavaScript Practice Projects to Level Up Your Developer Skills js by Abigail Amadi.
 https://jscrambler.com/blog/html-css-and-javascript-practice-projects-to-level-up-your-developer-skills

@@ -29,8 +29,9 @@
 .name-container h3 {
     text-align: center;
     font-size: 20px;
-    width: 80px;
+    max-width: 80px;
     margin: 20px 30px;
+    word-break: break-all;
 }
 
 .cd-button {
@@ -141,17 +142,19 @@
     flex: 1;
     border-radius: 10px;
     background-color: rgb(86, 176, 255);
-    word-break: break-all;
+    overflow-wrap: normal;
     padding: 5px;
 }
 
 .sendMessage > div {
     text-align: center;
     align-content: center;
-    height: 25px;
-    width: 50px;
+    padding: 4px;
+    max-height: 60px;
+    max-width: 60px;
     border: 2px solid black;
-    border-radius: 25px;
+    border-radius: 10px;
+    word-break: break-all;
 }
 
 .receiveMessage {
@@ -167,17 +170,19 @@
     flex: 1;
     border-radius: 10px;
     background-color: rgb(185, 185, 185);
-    word-break: break-all;
+    overflow-wrap: normal;
     padding: 5px;
 }
 
 .receiveMessage > div {
     text-align: center;
     align-content: center;
-    height: 25px;
-    width: 50px;
+    padding: 4px;
+    max-height: 60px;
+    max-width: 60px;
     border: 2px solid black;
-    border-radius: 25px;
+    border-radius: 10px;
+    word-break: break-all;
 }
 
 .timeStamp {
@@ -196,6 +201,7 @@
 
 .message-bar {
     resize: none;
+    height: 70px;
     width: 100%;
     padding: 5px;
     margin-right: 5px;

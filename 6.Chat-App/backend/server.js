@@ -4,7 +4,9 @@ import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { createUsers, createMessages, getRoom, getMessages, getUser } from './database.js';
+import { loadEnvFile } from "node:process";
 
+loadEnvFile(); // Access .env file
 const PORT = process.env.PORT || 8080;
 const userObj = {};
 const roomObj = {};
@@ -21,28 +23,28 @@ const app = express();
 // Static middleware - runs all static files together
 app.use(express.static(path.resolve(file_dir, "frontend")));
 
-// Socket.io
-// New socket
+// Socket connection
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     // Cors to connect server to client
     cors: {
-        origin: ["http://127.0.0.1:3000"]
+        origin: [process.env.ADDRESS]
     }
 });
 
-// Listens for socket connection
+// Socket Connected
 io.on("connection", (socket) => {
     /**
-     * Helper function. Shows users online except yourself.
-     * @return None.
+     * Helper function. Filter user from list.
      */
-    function userList() {
+    function userList(userName) {
         // Send filtered list to *this* client (exclude themselves)
         const filteredList = Object.fromEntries(
         Object.entries(userObj).filter(([id]) => id !== socket.id)
         );
-        socket.emit("list users", filteredList);
+        if (userObj[socket.id] === userName) {
+            socket.emit("list users", filteredList);
+        }
 
         // Send full list (including this new user) to everyone else
         io.to("public").emit("list users", userObj);
@@ -55,8 +57,8 @@ io.on("connection", (socket) => {
         userObj[socket.id] = userName;
         socket.join("public");
 
-        await createUsers(userUUID, userName, socket.id);
-        userList();
+        await createUsers(userUUID, userName, socket.id); // Store users in database
+        userList(userName);
     });
 
     /**
@@ -95,9 +97,9 @@ io.on("connection", (socket) => {
         // Update everyone’s room user list
         io.to(roomName).except("public").emit("room users", roomObj[roomName]);
 
-        await getRoom(roomName);
+        await getRoom(roomName); // Store room in database
 
-        const response = await getMessages(roomName); // room messages
+        const response = await getMessages(roomName); // Get room messages from database
         io.to(roomName).emit("room messages", response);
     });
 
@@ -127,7 +129,7 @@ io.on("connection", (socket) => {
         // Send system message
         socket.emit("system message", `You joined ${roomName}`);
 
-        const response = await getMessages(roomName); // room messages
+        const response = await getMessages(roomName);
         io.to(roomName).emit("room messages", response);
     });
 
@@ -138,16 +140,16 @@ io.on("connection", (socket) => {
         const room = socket.data.room;
         
         try {
-            await createMessages(socket.id, room, msg);
+            await createMessages(socket.id, room, msg); // Store messages in database
             socket.broadcast.to(room).emit("chat message", msg, userName);
 
         } catch (error) {
-            console.log(error);
+            throw new Error(error);
         }
     });
 
     /**
-     * Disconnect
+     * Socket Disconnect
      */
     socket.on("disconnect", () => {
         const username = userObj[socket.id];
@@ -160,11 +162,10 @@ io.on("connection", (socket) => {
         }
         
         userList();
-
     });
 });
 
-// Listen to port
+// Listen for port
 httpServer.listen(PORT, () => {
     console.log(`Server: ${PORT}`);
 });
